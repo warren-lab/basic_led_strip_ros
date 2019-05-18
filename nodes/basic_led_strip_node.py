@@ -10,7 +10,6 @@ from basic_led_strip_ros.srv import SetStripLEDResponse
 
 class BasicLedStripNode(object):
 
-
     def __init__(self):
         rospy.init_node('basic_led_strip')
         #self.port = rospy.get_param('/basic_led_strip/port', '/dev/ttyUSB1')
@@ -18,8 +17,7 @@ class BasicLedStripNode(object):
         self.led_strip = BasicLedStrip(self.port)
         self.led_strip.off()
         self.set_led_srv = rospy.Service('set_strip_led', SetStripLED, self.set_led_srv_callback)
-        self.led_value_sub = rospy.Publisher('strip_led_info', StripLEDInfo, queue_size=10)
-
+        self.led_info_pub = rospy.Publisher('strip_led_info', StripLEDInfo, queue_size=10)
 
     def set_led_srv_callback(self,req):
         success = True
@@ -29,6 +27,17 @@ class BasicLedStripNode(object):
         except Exception, e:
             success = False
             message = str(e)
+
+        msg = StripLEDInfo()
+        msg.header.stamp = rospy.Time.now()
+        msg.led_number = req.led_number
+        msg.red = req.red
+        msg.green = req.green
+        msg.blue = req.blue
+        msg.success = success
+        msg.message = message
+        self.led_info_pub.publish(msg)
+
         return SetStripLEDResponse(success, message)
 
     def run(self):
