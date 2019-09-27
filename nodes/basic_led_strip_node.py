@@ -22,11 +22,18 @@ class BasicLedStripNode(object):
     def set_led_srv_callback(self,req):
         success = True
         message = ''
-        try:
-            self.led_strip.set(req.led_number, (req.red, req.green, req.blue), mode='inclusive')
-        except Exception, e:
-            success = False
-            message = str(e)
+        if req.led_number >= 0:
+            try:
+                self.led_strip.set(req.led_number, (req.red, req.green, req.blue), mode='inclusive')
+            except Exception, e:
+                success = False
+                message = str(e)
+        else:
+            try:
+                self.led_strip.off()
+            except Exception, e:
+                success = False
+                message = str(e)
 
         msg = StripLEDInfo()
         msg.header.stamp = rospy.Time.now()
