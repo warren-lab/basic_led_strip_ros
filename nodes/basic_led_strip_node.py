@@ -12,7 +12,6 @@ class BasicLedStripNode(object):
 
     def __init__(self):
         rospy.init_node('basic_led_strip')
-        #self.port = rospy.get_param('/basic_led_strip/port', '/dev/ttyUSB1')
         self.port = rospy.get_param('/basic_led_strip/port', '/dev/sun_strip')
         self.led_strip = BasicLedStrip(self.port)
         self.led_strip.off()
@@ -24,7 +23,7 @@ class BasicLedStripNode(object):
         message = ''
         if req.led_number >= 0:
             try:
-                self.led_strip.set(req.led_number, (req.red, req.green, req.blue), mode='inclusive')
+                self.led_strip.set(req.led_number, (req.red, req.green, req.blue), mode='exclusive')
             except Exception, e:
                 success = False
                 message = str(e)
