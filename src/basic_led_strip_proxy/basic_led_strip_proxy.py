@@ -46,7 +46,7 @@ class BasicLedStripProxy(object):
         if self.use_thread:
             self.proxy_queue.put(data)
         else:
-            rsp = self.set_led_proxy(data)
+            rsp = self.set_led_proxy(*data)
     
     def set_led(self, led_num, rgb_values):
         if led_num >= 0:
@@ -56,7 +56,7 @@ class BasicLedStripProxy(object):
         if self.use_thread:
             self.proxy_queue.put(data)
         else:
-            rsp = self.set_led_proxy(data)
+            rsp = self.set_led_proxy(*data)
 
     def proxy_target(self):
         set_led_proxy = rospy.ServiceProxy(self.service_name,SetStripLED)
