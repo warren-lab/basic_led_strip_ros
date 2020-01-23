@@ -19,7 +19,6 @@ class BasicLedStripNode(object):
         self.led_info_pub = rospy.Publisher('strip_led_info', StripLEDInfo, queue_size=10)
 
     def set_led_srv_callback(self,req):
-        print(req)
         success = True
         message = ''
         if req.led_number >= 0:
