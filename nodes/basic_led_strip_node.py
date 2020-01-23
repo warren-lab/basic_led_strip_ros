@@ -12,13 +12,15 @@ class BasicLedStripNode(object):
 
     def __init__(self):
         rospy.init_node('basic_led_strip')
-        self.port = rospy.get_param('/basic_led_strip/port', '/dev/sun_strip')
+        #self.port = rospy.get_param('/basic_led_strip/port', '/dev/sun_strip')
+        self.port = rospy.get_param('/basic_led_strip/port', '/dev/ttyUSB0')
         self.led_strip = BasicLedStrip(self.port)
         self.led_strip.off()
         self.set_led_srv = rospy.Service('set_strip_led', SetStripLED, self.set_led_srv_callback)
         self.led_info_pub = rospy.Publisher('strip_led_info', StripLEDInfo, queue_size=10)
 
     def set_led_srv_callback(self,req):
+        print(req)
         success = True
         message = ''
         if req.led_number >= 0:
@@ -29,7 +31,7 @@ class BasicLedStripNode(object):
                 message = str(e)
         else:
             try:
-                self.led_strip.off()
+                self.led_strip.set_all((req.red, req.green, req.blue))
             except Exception, e:
                 success = False
                 message = str(e)

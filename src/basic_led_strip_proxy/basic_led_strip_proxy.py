@@ -40,9 +40,19 @@ class BasicLedStripProxy(object):
             with self.lock:
                 self.stop_thread = True
             self.proxy_thread.join()
+
+    def set_all(self, rgb_values):
+        data = (-1, rgb_values[0], rgb_values[1], rgb_values[2])
+        if self.use_thread:
+            self.proxy_queue.put(data)
+        else:
+            rsp = self.set_led_proxy(data)
     
-    def set_led(self,led_num, rgb_values):
-        data = (led_num, rgb_values[0], rgb_values[1], rgb_values[2])
+    def set_led(self, led_num, rgb_values):
+        if led_num >= 0:
+            data = (led_num, rgb_values[0], rgb_values[1], rgb_values[2])
+        else:
+            data = (led_num, 0, 0, 0)
         if self.use_thread:
             self.proxy_queue.put(data)
         else:
