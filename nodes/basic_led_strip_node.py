@@ -12,8 +12,7 @@ class BasicLedStripNode(object):
 
     def __init__(self):
         rospy.init_node('basic_led_strip')
-        #self.port = rospy.get_param('/basic_led_strip/port', '/dev/sun_strip')
-        self.port = rospy.get_param('/basic_led_strip/port', '/dev/ttyUSB0')
+        self.port = rospy.get_param('/basic_led_strip/port', '/dev/sun_strip')
         self.led_strip = BasicLedStrip(self.port)
         self.led_strip.off()
         self.set_led_srv = rospy.Service('set_strip_led', SetStripLED, self.set_led_srv_callback)
