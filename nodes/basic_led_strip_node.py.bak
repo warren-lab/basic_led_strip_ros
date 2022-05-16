@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-
+#!/usr/bin/env python
+from __future__ import print_function
 import threading
 import roslib
 import rospy
@@ -24,13 +24,13 @@ class BasicLedStripNode(object):
         if req.led_number >= 0:
             try:
                 self.led_strip.set(req.led_number, (req.red, req.green, req.blue), mode='exclusive')
-            except Exception as e:
+            except Exception, e:
                 success = False
                 message = str(e)
         else:
             try:
                 self.led_strip.set_all((req.red, req.green, req.blue))
-            except Exception as e:
+            except Exception, e:
                 success = False
                 message = str(e)
 

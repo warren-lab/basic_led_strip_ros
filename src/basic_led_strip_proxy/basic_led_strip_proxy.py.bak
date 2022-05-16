@@ -1,9 +1,9 @@
-
+from __future__ import print_function
 import time
 import rospy
 
 import threading
-import queue
+import Queue
 
 from basic_led_strip_ros.srv import SetStripLED
 
@@ -27,7 +27,7 @@ class BasicLedStripProxy(object):
         if self.use_thread:
             self.lock = threading.Lock()
             self.stop_thread = False
-            self.proxy_queue = queue.Queue()
+            self.proxy_queue = Queue.Queue()
             self.proxy_thread = threading.Thread(target=self.proxy_target)
             self.proxy_thread.daemon = True
             self.proxy_thread.start()
@@ -66,23 +66,9 @@ class BasicLedStripProxy(object):
                 done = self.stop_thread
             try:
                 data = self.proxy_queue.get_nowait()
-            except queue.Empty:
+            except Queue.Empty:
                 continue
             rsp = set_led_proxy(*data)
-
-    ## Logan Rower Edit Below with Reset
-    def reset_led(self, led_num):
-        if led_num>=0:
-            data = (led_num, 0,0,0)
-        else:
-            data = (led_num, 0, 0, 100)
-
-        if self.use_thread:
-            self.proxy_queue.put(data)
-        else:
-            rsp = self.set_led_proxy(*data)
-
-    ## End of Logan Edit
 
 
 # Testing
