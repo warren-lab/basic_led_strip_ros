@@ -50,6 +50,7 @@ catkin_python_setup()
  add_message_files(
    FILES
    StripLEDInfo.msg
+   SunInfo.msg
  )
 
 # Generate services in the 'srv' folder
