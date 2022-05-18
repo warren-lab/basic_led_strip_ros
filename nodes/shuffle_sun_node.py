@@ -11,7 +11,7 @@ from  basic_led_strip_proxy import BasicLedStripProxy
 from basic_led_strip import BasicLedStrip
 from basic_led_strip_ros.msg import StripLEDInfo
 from basic_led_strip_ros.msg import SunInfo
-from collections import Iterable
+from collections.abc import Iterable
 #from datetime import datetime
 
 class ShuffleSun:
@@ -23,7 +23,7 @@ class ShuffleSun:
         self.sun_position_pub = rospy.Publisher('sun_position', SunInfo, queue_size=10)
         rate = rospy.Rate(5) #Rate we want to publish message in Hz #added 1/20
         self.led_strip = BasicLedStripProxy(use_thread=True) #True? False?
-        self.led_index_list = range(144)
+        self.led_index_list = list(range(144))
         self.sun_positions = [19, 57, 93, 129]  #sun position in terms of actual LED number 
         self.current_sun_position = 0
         np.random.shuffle(self.sun_positions)
@@ -73,15 +73,15 @@ class ShuffleSun:
                 if any(step):
                     next(step)
                 else:
-                    print("step {} is no longer iterable".format(step.__name__))
+                    print(("step {} is no longer iterable".format(step.__name__)))
             else:
                 step()
             self.publish_sun_position()
-            print('sun_position: ' + str(self.current_sun_position))
+            print(('sun_position: ' + str(self.current_sun_position)))
             time.sleep (timestep)
 
 #-------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-
+        
     node = ShuffleSun()
     node.run()

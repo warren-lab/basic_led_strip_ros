@@ -11,36 +11,22 @@ from  basic_led_strip_proxy import BasicLedStripProxy
 from basic_led_strip import BasicLedStrip
 from basic_led_strip_ros.msg import StripLEDInfo
 from basic_led_strip_ros.msg import SunInfo
-from collections.abc import Iterable
+from collections import Iterable
 #from datetime import datetime
 
-class Random_LED:
+class ShuffleSun:
 
 
     def __init__(self):
 
-        # publishing to the topic sun position
-        # and using the message type of sun info
-        # additinally the queue size limits the number of queued messages if a subscriber is not recieving fast enough
-        self.led_position_pub = rospy.Publisher('sun_position', SunInfo, queue_size=10)
-
-        # ROS rate will choose correct amount of time to sleep in order to complete 50ms... so if code takes longer then sleep will be shorter..
+        rospy.init_node('shuffle_sun')
+        self.sun_position_pub = rospy.Publisher('sun_position', SunInfo, queue_size=10)
         rate = rospy.Rate(5) #Rate we want to publish message in Hz #added 1/20
-
-        # What does use_thread mean?
         self.led_strip = BasicLedStripProxy(use_thread=True) #True? False?
-
-        # initialized the number of leds... 0 to 143...
         self.led_index_list = range(144)
-
-        # the specfic positions of LEDs that will be utilized.
-        self.led_positions = [19, 57, 93, 129] 
-        
-        # also set the iniital led position to zero so that it can be set to a value based on experiment...
-        self.led_sun_position = 0
-
-        # Maybe do something different
-        np.random.shuffle(self.led_positions)
+        self.sun_positions = [19, 57, 93, 129]  #sun position in terms of actual LED number 
+        self.current_sun_position = 0
+        np.random.shuffle(self.sun_positions)
 
 
     def publish_sun_position(self):
@@ -60,7 +46,8 @@ class Random_LED:
             yield sun_position
 
     def run(self):
-         while not rospy.is_shutdown():
+
+        while not rospy.is_shutdown():
 
             """
             This experiment consists of the following procedure:
@@ -72,6 +59,7 @@ class Random_LED:
             """
             sun_sampling = self.sun_sample_no_replacement()
             procedure = [
+                            [self.dark,30],
                             [sun_sampling,300],
                             [sun_sampling,300],
                             [self.dark,30],
@@ -94,11 +82,6 @@ class Random_LED:
 
 #-------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-    rospy.init_node('shuffle_sun')
+
     node = ShuffleSun()
     node.run()
-    rospy.spin()
-    # try: 
-        
-    # except rospy.ROSInterruptException:
-    #     pass
