@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 
 from datetime import datetime
@@ -92,7 +93,7 @@ def led_run(led_strip,pub, rate):
         print(it_val) 
         it_val += 1
 
-    led_strip.reset_led(led_num_on)
+    
 
 
 
@@ -102,3 +103,6 @@ if __name__ == '__main__':
         main_run()
     except rospy.ROSInterruptException:
         pass
+        # NEED TO HAVE LIGHTS ALL SHUT OFF...
+
+        # led_strip.reset_led(led_num_on)
