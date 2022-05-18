@@ -59,7 +59,7 @@ num_led = 6  # 6 led will be on
 
 it_val = 0
 
-while it_val in np.arange(num_led):
+while it_val in np.arange(num_led): # loops through 6 times...
 	
 	## first would reference the led_num_on... and then call that and the we will set it to be on
 	led_strip.set_led(led_num_on,(100,0,0)) # 10, 32, 54, 76, 98, 120

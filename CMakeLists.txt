@@ -51,6 +51,7 @@ catkin_python_setup()
    FILES
    StripLEDInfo.msg
    SunInfo.msg
+   LEDinfo.msg
  )
 
 # Generate services in the 'srv' folder

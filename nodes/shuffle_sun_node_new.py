@@ -23,6 +23,7 @@ class Random_LED:
         # and using the message type of sun info
         # additinally the queue size limits the number of queued messages if a subscriber is not recieving fast enough
         self.led_position_pub = rospy.Publisher('sun_position', SunInfo, queue_size=10)
+        
 
         # ROS rate will choose correct amount of time to sleep in order to complete 50ms... so if code takes longer then sleep will be shorter..
         rate = rospy.Rate(5) #Rate we want to publish message in Hz #added 1/20
@@ -42,6 +43,13 @@ class Random_LED:
         # Maybe do something different
         np.random.shuffle(self.led_positions)
 
+    def PublishMessage(self):
+        # the message that has been referenced can be imported...
+        ledmsg = 
+
+    def dark_test(self):
+    
+    def led_test(self):
 
     def publish_sun_position(self):
         sun_msg = SunInfo()
