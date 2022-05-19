@@ -35,14 +35,14 @@ def main_run():
 
 
     while not rospy.is_shutdown():
-    
+        
 
     # This try statement could be reconfigured possibly?
 
         try: 
             led_run(led_strip,led_pos_pub, rate)
         except ROSInterruptException:
-            pass
+            led_strip.reset_led(led_num_on)
 
 def publish(led, pub):
     """
@@ -81,17 +81,21 @@ def led_run(led_strip,pub, rate):
     # randomly selected without replacement... basically just shuffling..
     led_rand_array = np.random.choice(led_array,len(led_array), replace=False)
     led = 0
-    for led_num in led_rand_array:  ## loop through the new random values//
+    init_val=0
+    while init_val <= (len(led_array)-1):
+    #for led_num in led_rand_array:  ## loop through the new random values//
         ## first would reference the led_num_on... and then call that and the we will set it to be on
         ## first would reference the led_num_on... and then call that and the we will set it to be on
+        led_num = led_array[init_val]
         led_strip.set_led(led_num,(100,0,0)) # 10, 32, 54, 76, 98, 120
         led = led_num
         publish(led, pub)
         # added a 5 seconds
         # slept based on rate
         rate.sleep()
+        init_val += 1
 
-    led_strip.reset_led(led)
+    
 
 if __name__ == '__main__':
     try:
