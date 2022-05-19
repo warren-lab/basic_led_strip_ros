@@ -34,15 +34,15 @@ def main_run():
 
 
 
-    while not rospy.is_shutdown():
-        
+    if not rospy.is_shutdown():
+        led_run(led_strip,led_pos_pub, rate)
 
     # This try statement could be reconfigured possibly?
 
-        try: 
-            led_run(led_strip,led_pos_pub, rate)
-        except ROSInterruptException:
-            pass
+        # try: 
+            
+        # except ROSInterruptException:
+        #     pass
 
 def publish(led, pub):
     """
