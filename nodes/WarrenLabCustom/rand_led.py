@@ -86,7 +86,7 @@ def led_run(led_strip,pub, rate):
     #for led_num in led_rand_array:  ## loop through the new random values//
         ## first would reference the led_num_on... and then call that and the we will set it to be on
         ## first would reference the led_num_on... and then call that and the we will set it to be on
-        led_num = led_array[init_val]
+        led_num = led_rand_array[init_val]
         led_strip.set_led(led_num,(100,0,0)) # 10, 32, 54, 76, 98, 120
         led = led_num
         publish(led, pub)
