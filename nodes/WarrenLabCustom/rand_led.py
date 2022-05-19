@@ -42,7 +42,7 @@ def main_run():
         try: 
             led_run(led_strip,led_pos_pub, rate)
         except ROSInterruptException:
-            led_strip.reset_led(led_num_on)
+            pass
 
 def publish(led, pub):
     """
@@ -94,7 +94,7 @@ def led_run(led_strip,pub, rate):
         # slept based on rate
         rate.sleep()
         init_val += 1
-
+    led_strip.reset_led(led_num)
     
 
 if __name__ == '__main__':
