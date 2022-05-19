@@ -70,31 +70,21 @@ def led_run(led_strip,pub, rate):
     Randomizes the Led that is selected...
     Also makes sure that there is a 1 minute time for each led..
     """
-    led_list = np.array([10, 32, 54, 76, 98, 120])
-    it_val = 1
-
-    while it_val <= len(led_list): ## loop through 6 times..
-        led_num = np.random.choice(led_list, replace = False)
+    led_array = np.array([10, 32, 54, 76, 98, 120])
+    # randomly selected without replacement... basically just shuffling..
+    led_rand_array = np.random.choice(led_array,len(led_array), replace=False)
+    led = 0
+    for led_num in led_rand_array:  ## loop through the new random values//
+        ## first would reference the led_num_on... and then call that and the we will set it to be on
         ## first would reference the led_num_on... and then call that and the we will set it to be on
         led_strip.set_led(led_num,(100,0,0)) # 10, 32, 54, 76, 98, 120
         led = led_num
         publish(led, pub)
-
         # added a 5 seconds
         # slept based on rate
         rate.sleep()
 
-        # after iteration go to the next one..
-        ## add 22...
-        #led_num_on += increase_val
-        ## add 1
-        #print(it_val) 
-        it_val += 1
-
     led_strip.reset_led(led_num_on)
-
-
-
 
 if __name__ == '__main__':
     try:
