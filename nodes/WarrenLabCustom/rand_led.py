@@ -13,7 +13,6 @@ from basic_led_strip import BasicLedStrip
 from basic_led_strip_ros.msg import LEDinfo
 #from basic_led_strip_ros.msg import SunInfo
 #from collections.abc import Iterable
-#led_position = 0
 def main_run():
     # publishing to the topic led_position
     # and using the message type of sun info
@@ -31,11 +30,19 @@ def main_run():
     #  10hz or 5 hz...
     ## Ros rate chooses the correc time to sleep based on how long it takes for it to run code..
     #### this will help to keep all nodes synchonized if every node is using same rate
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(1)
+
+
+
     while not rospy.is_shutdown():
-        led_run(led_strip,led_pos_pub, rate)
+    
 
+    # This try statement could be reconfigured possibly?
 
+        try: 
+            led_run(led_strip,led_pos_pub, rate)
+        except ROSInterruptException:
+            pass
 
 def publish(led, pub):
     """
@@ -84,7 +91,7 @@ def led_run(led_strip,pub, rate):
         # slept based on rate
         rate.sleep()
 
-    led_strip.reset_led(led_num_on)
+    led_strip.reset_led(led)
 
 if __name__ == '__main__':
     try:
