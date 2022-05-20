@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# Need to improve start up tie
+
+
+
 from datetime import datetime
 import time
 import sys
@@ -110,8 +114,8 @@ def dark_run(led_strip,pub):
     time_dark = 30
     led_dark = 0
     led_strip.set_led(led_dark,(0,led_dark,0))
-    publish(led_dark, pub) 
     time.sleep(time_dark)
+    publish(led_dark, pub) 
     
 
 if __name__ == '__main__':
