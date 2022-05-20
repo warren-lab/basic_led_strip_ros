@@ -60,8 +60,8 @@ class ShuffleSun:
             sun_sampling = self.sun_sample_no_replacement()
             procedure = [
                             [self.dark,30],
-                            [sun_sampling,300],
-                            [sun_sampling,300],
+                            [sun_sampling,30],
+                            [sun_sampling,30],
                             [self.dark,30],
                         ]
             self.experiment(procedure)
