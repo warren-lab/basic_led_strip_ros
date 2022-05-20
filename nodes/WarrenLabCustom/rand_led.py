@@ -35,9 +35,9 @@ def main_run():
 
 
     while not rospy.is_shutdown():
-        dark_run(led_strip)
+        dark_run(led_strip, led_pos_pub)
         led_run(led_strip,led_pos_pub)
-        dark_run(led_strip)
+        dark_run(led_strip, led_pos_pub)
         
         sys.exit()
     # This try statement could be reconfigured possibly?
