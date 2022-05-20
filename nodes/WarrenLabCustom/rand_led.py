@@ -101,7 +101,6 @@ def led_run(led_strip,pub, rate):
     
 
 if __name__ == '__main__':
-    try:
-        main_run()
-    except rospy.ROSInterruptException:
-        pass
+    main_run()
+    # except rospy.ROSInterruptException:
+    #     pass
