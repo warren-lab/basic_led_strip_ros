@@ -109,7 +109,7 @@ def dark_run(led_strip,pub):
     """
     time_dark = 30
     led_dark = 0
-    led_strip.set_led(led_dark,(0,128,0))
+    led_strip.set_led(led_dark,(0,led_dark,0))
     publish(led_dark, pub) 
     time.sleep(time_dark)
     
