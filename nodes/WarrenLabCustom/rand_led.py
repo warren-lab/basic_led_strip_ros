@@ -117,7 +117,6 @@ def dark_run(led_strip,pub):
     time.sleep(time_dark)
     publish(led_dark, pub) 
     
-
 if __name__ == '__main__':
     main_run()
     # except rospy.ROSInterruptException:
