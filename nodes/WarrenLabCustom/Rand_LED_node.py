@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-
 # Need to improve start up tie
-
-
-
 from datetime import datetime
 import time
 import sys
@@ -20,11 +16,9 @@ from basic_led_strip_ros.msg import LEDinfo
 
 # Created a class for the random LED
 class LED_Run:
-
     def init(self):
         # initialization of the node
         rospy.init_node('led_run', anonymous=True)
-
         ## set the publisher object
         ## # publishing to the topic led_position
         ## # and using the message type of sun info
@@ -132,6 +126,7 @@ class LED_Run:
         self.publish() 
     
 if __name__ == '__main__':
-    LED_Run.main_run()
+    led_node = LED_Run()
+    led_node.main_run()
     # except rospy.ROSInterruptException:
     #     pass
