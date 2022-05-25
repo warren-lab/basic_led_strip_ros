@@ -45,9 +45,9 @@ class LED_Run:
         ## array of all the LED's that will be turned on at random
         self.led_array = np.array([10, 32, 54, 76, 98, 120])
         ## LED Time ON
-        self.LED_time = 30 # seconds
+        self.time_LED = 30 # seconds
         ## Dark Time (TIME LED OFF)
-        self.DARK_time = 30 # seconds 
+        self.time_dark = 30 # seconds 
 
     def main_run(self):
 
@@ -102,7 +102,7 @@ class LED_Run:
         # randomly selected without replacement... basically just shuffling..
         led_rand_array = np.random.choice(self.led_array,len(self.led_array), replace=False)
         init_val=0
-        while init_val <= (len(led_array)-1):
+        while init_val <= (len(self.led_array)-1):
         #for led_num in led_rand_array:  ## loop through the new random values//
         # Looped through random 6 values
             led_num = led_rand_array[init_val]
@@ -111,7 +111,7 @@ class LED_Run:
             self.publish()
             # added a 5 seconds
             # slept based on rate
-            time.sleep(self.LED_time)
+            time.sleep(self.time_LED)
             init_val += 1
         self.led_strip.reset_led(self.led_current)
     def dark_run(self):
