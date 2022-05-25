@@ -64,7 +64,7 @@ class LED_Run:
             # except ROSInterruptException:
             #     pass
 
-    def publish(self):
+    def publish_msg(self):
         """
         This function deals with 
         publishing to the message 
@@ -108,7 +108,7 @@ class LED_Run:
             led_num = led_rand_array[init_val]
             self.led_strip.set_led(led_num,self.light_led) # 10, 32, 54, 76, 98, 120
             self.led_current = led_num
-            self.publish()
+            self.publish_msg()
             # added a 5 seconds
             # slept based on rate
             time.sleep(self.time_LED)
@@ -123,7 +123,7 @@ class LED_Run:
         # set all leds to be dark...
         self.led_strip.set_all(self.dark_led)
         time.sleep(self.time_dark)
-        self.publish() 
+        self.publish_msg() 
     
 if __name__ == '__main__':
     led_node = LED_Run()
