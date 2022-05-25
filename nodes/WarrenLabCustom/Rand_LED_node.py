@@ -39,9 +39,9 @@ class LED_Run:
         ## Set current led to be zero
         self.led_current = 0
         ## color of dark led
-        self.dark_led = (0,0,0)
+        self.dark_led = 0 #(0,0,0)
         ## color of led when on
-        self.light_led = (0,128,0)
+        self.light_led = 128 #(0,128,0)
         ## array of all the LED's that will be turned on at random
         self.led_array = np.array([10, 32, 54, 76, 98, 120])
         ## LED Time ON
@@ -106,7 +106,7 @@ class LED_Run:
         #for led_num in led_rand_array:  ## loop through the new random values//
         # Looped through random 6 values
             led_num = led_rand_array[init_val]
-            self.led_strip.set_led(led_num,self.light_led) # 10, 32, 54, 76, 98, 120
+            self.led_strip.set_led(led_num,(0,128,0)) # 10, 32, 54, 76, 98, 120
             self.led_current = led_num
             self.publish_msg()
             # added a 5 seconds
@@ -121,7 +121,7 @@ class LED_Run:
         # set the led position to be zero
         self.led_current = 0
         # set all leds to be dark...
-        self.led_strip.set_all(self.dark_led)
+        self.led_strip.set_all((0,0,0))
         time.sleep(self.time_dark)
         self.publish_msg() 
     
