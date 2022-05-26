@@ -52,6 +52,7 @@ class LED_Run:
     def main_run(self):
 
         while not rospy.is_shutdown():
+            print("Starting Experiment")
             self.dark_run()
             self.led_run()
             self.dark_run()
@@ -99,6 +100,7 @@ class LED_Run:
         Randomizes the Led that is selected...
         Also makes sure that there is a 1 minute time for each led..
         """
+        print("Random LED:")
         # randomly selected without replacement... basically just shuffling..
         led_rand_array = np.random.choice(self.led_array,len(self.led_array), replace=False)
         init_val=0
@@ -118,6 +120,7 @@ class LED_Run:
         """
         publish only once...
         """
+        print("Dark Data:")
         # set the led position to be zero
         self.led_current = 0
         # set all leds to be dark...
