@@ -125,8 +125,9 @@ class LED_Run:
         self.led_current = 0
         # set all leds to be dark...
         self.led_strip.set_all((0,0,0))
-        time.sleep(self.time_dark)
         self.publish_msg() 
+        time.sleep(self.time_dark)
+        
     
 if __name__ == '__main__':
     led_node = LED_Run()
