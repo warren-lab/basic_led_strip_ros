@@ -148,8 +148,8 @@ if __name__ == '__main__':
         led_node.main_run()
     except rospy.ROSInterruptException:
         # Resets the current LED...
-        led_reset = LED_Run.get_current_led()
-        LED_Run.set_led_off(led_reset)
-
+        pass
+        # led_reset = LED_Run.get_current_led()
+        # LED_Run.set_led_off(led_reset)
     # except rospy.ROSInterruptException:
     #     pass
