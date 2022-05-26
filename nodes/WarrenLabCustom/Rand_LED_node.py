@@ -153,3 +153,6 @@ if __name__ == '__main__':
         # LED_Run.set_led_off(led_reset)
     # except rospy.ROSInterruptException:
     #     pass
+
+    # INJECT A ROS RUN FUNCTION THAT WILL BE FOR JUST THE led and dark functions
+    ## Then maybe do a try with that?
