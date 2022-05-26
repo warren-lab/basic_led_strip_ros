@@ -127,10 +127,29 @@ class LED_Run:
         self.led_strip.set_all((0,0,0))
         self.publish_msg() 
         time.sleep(self.time_dark)
+
+    def get_current_led(self):
+        """
+        Method that returns the current led_number
+        """
+        return self.led_current
+    def set_led_off(self,led_num):
+        """
+        When the experiment is ended early all LEDs need to be turned off
+
+        Takes input of the current led and turns that off.
+        """
+        self.led_strip.reset_led(led_num)
         
     
 if __name__ == '__main__':
     led_node = LED_Run()
-    led_node.main_run()
+    try :
+        led_node.main_run()
+    except rospy.ROSInterruptException:
+        # Resets the current LED...
+        led_reset = LED_Run.get_current_led()
+        LED_Run.set_led_off(led_reset)
+
     # except rospy.ROSInterruptException:
     #     pass
