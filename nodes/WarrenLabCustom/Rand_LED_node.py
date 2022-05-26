@@ -16,7 +16,7 @@ from basic_led_strip_ros.msg import LEDinfo
 
 # Created a class for the random LED
 class LED_Run:
-    def init(self):
+    def __init__(self):
         # initialization of the node
         rospy.init_node('led_run', anonymous=True)
         ## set the publisher object
