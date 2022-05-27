@@ -1,5 +1,21 @@
 #!/usr/bin/env python3
-# Need to improve start up tie
+
+# Experiment:
+## Length of Time: 5 min
+#### Dark Time: 2, 30 sec periods
+#### LED Time: 4, 1 min periods
+
+# will publish data on the led position to the topic of 'led_position'
+
+# LED control shuts off the magno tether...
+## if this ROS node shuts down need to commuynicate with the other node to stop,
+
+# Number of LEDS: 144
+# Values of LEDS range from 0 to 143
+
+
+# NEED to Save this node with the TWYG
+
 from datetime import datetime
 import time
 import sys
@@ -43,9 +59,11 @@ class LED_Run:
         ## color of led when on
         self.light_led = 128 #(0,128,0)
         ## array of all the LED's that will be turned on at random
-        self.led_array = np.array([10, 32, 54, 76, 98, 120])
+        #self.led_array = np.array([10, 32, 54, 76, 98, 120])
+        ## array of the four LED's
+        self.led_array = np.array([0,36,72,108])
         ## LED Time ON
-        self.time_LED = 30 # seconds
+        self.time_LED = 60 # seconds
         ## Dark Time (TIME LED OFF)
         self.time_dark = 30 # seconds 
 
@@ -53,7 +71,7 @@ class LED_Run:
 
         while not rospy.is_shutdown():
             rospy.sleep(1)
-            print("Starting Experiment")
+            print("Starting Experiment..."+"\n")
             self.dark_run()
             self.led_run()
             self.dark_run()
@@ -89,10 +107,10 @@ class LED_Run:
         
         # Next will log this information...
         ## basically printing
-        rospy.logwarn('publishing message')
-        rospy.loginfo("LED Information")
+        #rospy.logwarn('publishing message')
         
-        rospy.loginfo(str(led_msg))
+        rospy.loginfo("\n"+"LED Information:")
+        print(str(led_msg))
         
         # finally publish the result to the message
         ## using the publisher
@@ -105,7 +123,7 @@ class LED_Run:
         Randomizes the Led that is selected...
         Also makes sure that there is a 1 minute time for each led..
         """
-        print("Random LED:")
+        print("\n"+"Random LED:")
         # randomly selected without replacement... basically just shuffling..
         led_rand_array = np.random.choice(self.led_array,len(self.led_array), replace=False)
         init_val=0
@@ -113,8 +131,10 @@ class LED_Run:
         #for led_num in led_rand_array:  ## loop through the new random values//
         # Looped through random 6 values
             led_num = led_rand_array[init_val]
-            self.led_strip.set_led(led_num,(0,128,0)) # 10, 32, 54, 76, 98, 120
+            self.led_strip.set_led(led_num,(0,128,0)) 
             self.led_current = led_num
+            led_ang = (led_num/144)*360 # degrees
+            print("\n"+"Current LED Angle:"+str(led_ang))
             self.publish_msg()
             # added a 5 seconds
             # slept based on rate
@@ -125,9 +145,11 @@ class LED_Run:
         """
         publish only once...
         """
-        print("Dark Data:")
-        # set the led position to be zero
-        self.led_current = 0
+        print("Dark Data:"+"\n")
+        # set the led position to be dark, and that being a positive value...
+        ## Errors will occur if it is negative.
+        ## Additionally the value of 150 was set such that it is not within the scope of the LED 
+        self.led_current = 150
         # set all leds to be dark...
         self.led_strip.set_all((0,0,0))
         self.publish_msg() 
