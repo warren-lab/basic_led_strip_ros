@@ -90,7 +90,7 @@ def led_run(led_strip,pub):
     #     'led_color':np.array([0,128])
     # }
     led_array = np.array([10, 32, 54, 76, 98, 120])
-    time_led = 30
+    time_led = 10
     # randomly selected without replacement... basically just shuffling..
     led_rand_array = np.random.choice(led_array,len(led_array), replace=False)
     led = 0
@@ -111,7 +111,7 @@ def dark_run(led_strip,pub):
     """
     publish only once...
     """
-    time_dark = 30
+    time_dark = 5
     led_dark = 0
     led_strip.set_led(led_dark,(0,led_dark,0))
     time.sleep(time_dark)

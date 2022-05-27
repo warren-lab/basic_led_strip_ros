@@ -52,6 +52,7 @@ class LED_Run:
     def main_run(self):
 
         while not rospy.is_shutdown():
+            rospy.sleep(1)
             print("Starting Experiment")
             self.dark_run()
             self.led_run()
@@ -81,19 +82,23 @@ class LED_Run:
         # after message initialization then needed to get the parameters that the message requires
         ## The current time for the header time stamp
         current_time = datetime.now().strftime("%Y%M%D_%H%M%S")
-        led_msg.header.stamp = current_time
+        #led_msg.header.stamp = current_time
+        led_msg.header.stamp=rospy.Time.now()
         ## The position of the LED as in the number of the LED
         led_msg.led_position = self.led_current
         
         # Next will log this information...
         ## basically printing
+        rospy.logwarn('publishing message')
         rospy.loginfo("LED Information")
+        
         rospy.loginfo(str(led_msg))
         
         # finally publish the result to the message
         ## using the publisher
         ## published to the message LEDinfo
         self.led_pos_pub.publish(led_msg)
+        rospy.logwarn('message published')
 
     def led_run(self):
         """
