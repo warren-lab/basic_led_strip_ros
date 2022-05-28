@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+# 0 to 4 LED's ARE OBSCURED!!
+# STARTING LED is 5
+
+
+
 # Experiment:
 ## Length of Time: 5 min
 #### Dark Time: 2, 30 sec periods
@@ -61,11 +66,12 @@ class LED_Run:
         ## array of all the LED's that will be turned on at random
         #self.led_array = np.array([10, 32, 54, 76, 98, 120])
         ## array of the four LED's
-        self.led_array = np.array([0,36,72,108])
+        self.led_array = np.array([31,67,106,139])#
+        
         ## LED Time ON
-        self.time_LED = 60 # seconds
+        self.time_LED = 10 # seconds
         ## Dark Time (TIME LED OFF)
-        self.time_dark = 30 # seconds 
+        self.time_dark = 10 # seconds 
 
     def main_run(self):
 
