@@ -17,6 +17,8 @@
 
 # Number of LEDS: 144
 # Values of LEDS range from 0 to 143
+# 150 is dark
+# 149 is stop experiment
 
 
 # NEED to Save this node with the TWYG
@@ -67,11 +69,11 @@ class LED_Run:
         #self.led_array = np.array([10, 32, 54, 76, 98, 120])
         ## array of the four LED's
         self.led_array = np.array([31,67,106,139])#
-        
+
         ## LED Time ON
-        self.time_LED = 10 # seconds
+        self.time_LED = 60 # seconds
         ## Dark Time (TIME LED OFF)
-        self.time_dark = 10 # seconds 
+        self.time_dark = 30 # seconds 
 
     def main_run(self):
 
@@ -81,7 +83,7 @@ class LED_Run:
             self.dark_run()
             self.led_run()
             self.dark_run()
-            
+            self.publish_end_msg()
             sys.exit()
         # This try statement could be reconfigured possibly?
 
@@ -123,6 +125,13 @@ class LED_Run:
         ## published to the message LEDinfo
         self.led_pos_pub.publish(led_msg)
         rospy.logwarn('message published')
+
+    
+
+    def publish_end_msg(self):
+        self.led_current=149
+        rospy.logwarn('Ending experiment from Rand_LED_node.py')
+        self.publish_msg()
 
     def led_run(self):
         """
