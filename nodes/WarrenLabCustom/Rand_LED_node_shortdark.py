@@ -76,15 +76,11 @@ class LED_Run:
         ## array of the four LED's
         #self.led_array = np.array([31,67,106,139])#
         #self.led_array = np.array([35,69,104,138])
-        self.led_array = np.array([32,68,105,138]) ### the latest 04/13/2023
-        #self.led_array = np.arange(3,144) ### for rotation
+        self.led_array = np.array([32,68,105,138])
         ## LED Time ON
         self.time_LED = 120 # seconds
-        #self.time_LED = 30/(len(self.led_array)) # seconds roration for 30 sec
-        #self.time_LED = 0.05
         ## Dark Time (TIME LED OFF)
-        self.time_dark = 60 # seconds
-        #self.time_dark = 0 # seconds 
+        self.time_dark = 10 # seconds 
 
     def main_run(self):
 
@@ -155,7 +151,6 @@ class LED_Run:
         print("\n"+"Random LED:")
         # randomly selected without replacement... basically just shuffling..
         led_rand_array = np.random.choice(self.led_array,len(self.led_array), replace=False)
-        #led_rand_array=self.led_array ### for rotation, not random
         init_val=0
         while init_val <= (len(self.led_array)-1):
         #for led_num in led_rand_array:  ## loop through the new random values//

@@ -8,10 +8,28 @@ import numpy as np
 led_strip = BasicLedStripProxy(use_thread=False)
 
 # led_index_list = list(range(50))
-led_array = np.array([31,67,106,139])
+#led_array = np.array([35,69,104,138])
+
+
+led_array = np.array([32,68,105,138])
+#led_array = np.array([143])
+#led_array = np.arange(3,144) ### for rotation
+
+#2022/11/20
+#LED138->180 degree
+#LED105->+90 degree
+#LED68->0 degree
+#LED32->-90 degree
+#LED0-2 covered by LED141-143
+
+
+# led_strip.set_led(32, (0,128,0))
+
 for i in led_array:
     led_strip.set_led(i,(0,128,0)) 
+    #time.sleep(10)
     time.sleep(2)
+
 # for i in led_index_list:
 #     print(i)
 #     led_strip.set_led(i,(100,0,0))
@@ -33,7 +51,5 @@ for i in led_array:
 # led_strip.set_all((100,   0, 100))
 # time.sleep(1.0)
 # led_strip.set_all((  0,   0,   0))
-
-
 
 
